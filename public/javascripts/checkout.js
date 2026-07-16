@@ -31,6 +31,7 @@
           '<span class="product-art" style="--tone:' + (Number(item.tone) || 340) + ';"><span class="art-emoji" style="font-size:26px;">' + B.escapeHtml(item.emoji || '🌸') + '</span></span>' +
           '<div class="cart-line-info">' +
             '<strong>' + B.escapeHtml(item.name) + '</strong>' +
+            (item.shade ? '<span class="cart-line-price">Shade: ' + B.escapeHtml(item.shade) + '</span><br>' : '') +
             '<span class="cart-line-price">' + B.money(item.price) + ' each</span><br>' +
             '<span class="qty-stepper">' +
               '<button type="button" data-cart-minus="' + item.id + '">−</button>' +
@@ -89,7 +90,7 @@
     B.api('/api/orders', {
       method: 'POST',
       body: {
-        items: cart.map(function (item) { return { id: item.id, quantity: item.quantity }; }),
+        items: cart.map(function (item) { return { id: item.id, quantity: item.quantity, shade: item.shade || '' }; }),
         paymentMethod: paymentMethod,
         address: address
       }

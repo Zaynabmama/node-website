@@ -19,6 +19,7 @@
   /* Quantity stepper feeds the add-to-cart button's data-qty */
   var qtyVal = B.$('#pdp-qty-val');
   var addBtn = B.$('#pdp-add');
+  var shadeSelect = B.$('#shade-select');
 
   function currentQty() { return Number(qtyVal.textContent) || 1; }
 
@@ -34,6 +35,12 @@
   if (qtyVal && addBtn) {
     B.$('#pdp-qty-minus').addEventListener('click', function () { setQty(currentQty() - 1); });
     B.$('#pdp-qty-plus').addEventListener('click', function () { setQty(currentQty() + 1); });
+  }
+
+  if (shadeSelect && addBtn) {
+    shadeSelect.addEventListener('change', function () {
+      addBtn.setAttribute('data-shade', shadeSelect.value || '');
+    });
   }
 
   /* Star picker */

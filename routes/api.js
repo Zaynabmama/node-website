@@ -227,6 +227,13 @@ function applyProductFields(product, payload) {
   if (payload.images !== undefined && Array.isArray(payload.images)) {
     product.images = payload.images.map(String).filter(Boolean).slice(0, 4);
   }
+  if (payload.shades !== undefined) {
+    if (Array.isArray(payload.shades)) {
+      product.shades = payload.shades.map(String).map((value) => value.trim()).filter(Boolean);
+    } else if (typeof payload.shades === 'string') {
+      product.shades = payload.shades.split(',').map((value) => value.trim()).filter(Boolean);
+    }
+  }
   if (payload.modelImage !== undefined) product.modelImage = String(payload.modelImage).trim();
   if (product.stock <= 0) product.soldOut = true;
   if (product.soldOut) product.stock = 0;
@@ -389,6 +396,7 @@ router.post('/orders', auth.requireUser, (req, res) => {
   for (const item of items) {
     const quantity = Math.max(1, Math.floor(Number(item.quantity) || 1));
     const product = products.find((entry) => entry.id === Number(item.id));
+    const shade = String(item.shade || '').trim();
 
     if (!product) {
       return res.status(400).json({ ok: false, message: 'One of the items is no longer available.' });
@@ -405,7 +413,7 @@ router.post('/orders', auth.requireUser, (req, res) => {
     product.stock -= quantity;
     product.soldOut = product.stock <= 0;
     subtotal += product.price * quantity;
-    orderItems.push({ productId: product.id, name: product.name, quantity, price: product.price });
+    orderItems.push({ productId: product.id, name: product.name, quantity, price: product.price, shade });
   }
 
   const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FLAT;
@@ -433,7 +441,7 @@ router.post('/orders', auth.requireUser, (req, res) => {
   store.write('orders', orders);
 
   const itemsSummary = orderItems
-    .map((item) => '  • ' + item.quantity + ' × ' + item.name + ' ($' + item.price.toFixed(2) + ')')
+    .map((item) => '  • ' + item.quantity + ' × ' + item.name + (item.shade ? ' (' + item.shade + ')' : '') + ' ($' + item.price.toFixed(2) + ')')
     .join('\n');
   emailService.sendEmail('order_confirmation', req.user.email, {
     firstName: req.user.name,

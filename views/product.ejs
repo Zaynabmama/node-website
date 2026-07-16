@@ -61,6 +61,17 @@
 
         <p style="margin-top: 18px; color: var(--ink-soft); line-height: 1.75;"><%= product.description %></p>
 
+        <% if (product.shades && product.shades.length) { %>
+          <div class="field" style="margin-top: 18px;">
+            <label for="shade-select">Shade</label>
+            <select id="shade-select" class="select-pill" style="width: 100%;">
+              <% product.shades.forEach(function(shade) { %>
+                <option value="<%= shade.name %>" data-color="<%= shade.color %>"><%= shade.label %></option>
+              <% }); %>
+            </select>
+          </div>
+        <% } %>
+
         <div class="pdp-actions">
           <% if (product.available) { %>
             <div class="qty-stepper" id="pdp-qty">
@@ -74,7 +85,8 @@
                     data-price="<%= product.price %>"
                     data-emoji="<%= product.emoji %>"
                     data-tone="<%= product.tone %>"
-                    data-stock="<%= product.stock %>">Add to bag — <%= money(product.price) %></button>
+                    data-stock="<%= product.stock %>"
+                    data-shade="<%= product.selectedShade ? product.selectedShade.name : '' %>">Add to bag — <%= money(product.price) %></button>
           <% } else { %>
             <button class="btn btn-primary" disabled>Sold out</button>
             <a class="btn btn-ghost" href="/shop">Browse alternatives</a>

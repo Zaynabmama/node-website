@@ -22,7 +22,12 @@
       }
     ],
     "category": "makeup",
-    "tone": 340
+    "tone": 340,
+    "shades": [
+      "Rose Nude",
+      "Berry",
+      "Cocoa"
+    ]
   },
   {
     "id": 2,
@@ -38,7 +43,8 @@
     "modelImage": "",
     "reviews": [],
     "category": "skincare",
-    "tone": 35
+    "tone": 35,
+    "shades": []
   },
   {
     "id": 3,
@@ -54,7 +60,11 @@
     "modelImage": "",
     "reviews": [],
     "category": "makeup",
-    "tone": 265
+    "tone": 265,
+    "shades": [
+      "Black",
+      "Deep Brown"
+    ]
   },
   {
     "id": 4,
@@ -70,7 +80,11 @@
     "modelImage": "",
     "reviews": [],
     "category": "makeup",
-    "tone": 350
+    "tone": 350,
+    "shades": [
+      "Peony",
+      "Rosewood"
+    ]
   },
   {
     "id": 5,
@@ -86,7 +100,8 @@
     "modelImage": "",
     "reviews": [],
     "category": "skincare",
-    "tone": 195
+    "tone": 195,
+    "shades": []
   },
   {
     "id": 6,
@@ -102,6 +117,7 @@
     "modelImage": "",
     "reviews": [],
     "category": "fragrance",
-    "tone": 45
+    "tone": 45,
+    "shades": []
   }
 ]

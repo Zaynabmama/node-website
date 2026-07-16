@@ -144,7 +144,7 @@
 
   function addToCart(item, quantity) {
     var cart = getCart();
-    var existing = cart.find(function (line) { return line.id === item.id; });
+    var existing = cart.find(function (line) { return line.id === item.id && line.shade === item.shade; });
     var stock = Number(item.stock) || 99;
     var wanted = (existing ? existing.quantity : 0) + (quantity || 1);
 
@@ -156,7 +156,7 @@
       existing.quantity = wanted;
       existing.stock = stock;
     } else {
-      cart.push({ id: item.id, name: item.name, price: item.price, emoji: item.emoji, tone: item.tone, stock: stock, quantity: wanted });
+      cart.push({ id: item.id, name: item.name, price: item.price, emoji: item.emoji, tone: item.tone, stock: stock, quantity: wanted, shade: item.shade || '' });
     }
     saveCart(cart);
   }
@@ -192,6 +192,7 @@
         '<span class="product-art" style="--tone:' + (Number(item.tone) || 340) + ';"><span class="art-emoji" style="font-size:26px;">' + escapeHtml(item.emoji || '🌸') + '</span></span>' +
         '<div class="cart-line-info">' +
           '<strong>' + escapeHtml(item.name) + '</strong>' +
+          (item.shade ? '<span class="cart-line-price">Shade: ' + escapeHtml(item.shade) + '</span><br>' : '') +
           '<span class="cart-line-price">' + money(item.price) + ' each</span><br>' +
           '<span class="qty-stepper">' +
             '<button type="button" data-cart-minus="' + item.id + '" aria-label="Decrease">−</button>' +
@@ -275,7 +276,8 @@
         price: Number(add.getAttribute('data-price')),
         emoji: add.getAttribute('data-emoji'),
         tone: Number(add.getAttribute('data-tone')),
-        stock: Number(add.getAttribute('data-stock'))
+        stock: Number(add.getAttribute('data-stock')),
+        shade: add.getAttribute('data-shade') || ''
       }, qty);
       toast('Added to your bag 🛍️');
       openCartDrawer();
