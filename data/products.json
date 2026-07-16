@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Velvet Satin Lip",
     "brand": "Luna",
-    "price": "$24",
+    "price": 24,
     "badge": "Bestseller",
     "emoji": "💄",
     "description": "A soft matte finish with lasting comfort.",
@@ -20,13 +20,15 @@
         "comment": "i love this product!!!!",
         "createdAt": "2026-07-16T08:05:22.495Z"
       }
-    ]
+    ],
+    "category": "makeup",
+    "tone": 340
   },
   {
     "id": 2,
     "name": "Glow Serum",
     "brand": "Aura",
-    "price": "$39",
+    "price": 39,
     "badge": "New",
     "emoji": "✨",
     "description": "A dewy serum that brightens and hydrates.",
@@ -34,13 +36,15 @@
     "soldOut": false,
     "images": [],
     "modelImage": "",
-    "reviews": []
+    "reviews": [],
+    "category": "skincare",
+    "tone": 35
   },
   {
     "id": 3,
     "name": "Lash Lift Mascara",
     "brand": "Nova",
-    "price": "$22",
+    "price": 22,
     "badge": "Top Rated",
     "emoji": "👁️",
     "description": "Builds length and drama without clumping.",
@@ -48,13 +52,15 @@
     "soldOut": false,
     "images": [],
     "modelImage": "",
-    "reviews": []
+    "reviews": [],
+    "category": "makeup",
+    "tone": 265
   },
   {
     "id": 4,
     "name": "Dawn Blush",
     "brand": "Luna",
-    "price": "$28",
+    "price": 28,
     "badge": "Trending",
     "emoji": "🌸",
     "description": "A rosy flush for a healthy glow.",
@@ -62,13 +68,15 @@
     "soldOut": false,
     "images": [],
     "modelImage": "",
-    "reviews": []
+    "reviews": [],
+    "category": "makeup",
+    "tone": 350
   },
   {
     "id": 5,
     "name": "Hydra Cream",
     "brand": "Aura",
-    "price": "$34",
+    "price": 34,
     "badge": "Editor Pick",
     "emoji": "🫧",
     "description": "A rich cream that locks in hydration.",
@@ -76,13 +84,15 @@
     "soldOut": false,
     "images": [],
     "modelImage": "",
-    "reviews": []
+    "reviews": [],
+    "category": "skincare",
+    "tone": 195
   },
   {
     "id": 6,
     "name": "Velvet Eau De Parfum",
     "brand": "Nova",
-    "price": "$46",
+    "price": 46,
     "badge": "Limited",
     "emoji": "🌼",
     "description": "A soft floral scent designed for everyday elegance.",
@@ -90,6 +100,8 @@
     "soldOut": false,
     "images": [],
     "modelImage": "",
-    "reviews": []
+    "reviews": [],
+    "category": "fragrance",
+    "tone": 45
   }
 ]

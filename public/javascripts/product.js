@@ -1,62 +1,82 @@
-$(function () {
-  var $reviewForm = $('#review-form');
-  var $reviewRating = $('#review-rating');
-  var $reviewComment = $('#review-comment');
-  var $reviewStatus = $('#review-status');
-  var $reviewList = $('#review-list');
-  var productId = $('#product-details').data('product-id');
+/* Product page — gallery, quantity stepper, star picker, review form. */
+(function () {
+  'use strict';
+  var B = window.Beautique;
 
-  function renderReviews(reviews) {
-    if (!reviews || !reviews.length) {
-      $reviewList.html('<p class="product-no-reviews">No reviews yet. Be the first to review this product.</p>');
-      return;
-    }
+  var page = B.$('#product-page');
+  if (!page) return;
+  var productId = Number(page.getAttribute('data-product-id'));
 
-    var html = '<div class="review-summary">';
-    html += '<h4>Customer reviews</h4>';
-    reviews.forEach(function (review) {
-      html += '<div class="review-item">';
-      html += '<div class="review-header"><strong>' + review.userName + '</strong> <span>(' + new Date(review.createdAt).toLocaleDateString() + ')</span></div>';
-      html += '<div class="review-rating">' + '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) + '</div>';
-      html += '<p>' + (review.comment || '<em>No comment provided.</em>') + '</p>';
-      html += '</div>';
-    });
-    html += '</div>';
-    $reviewList.html(html);
-  }
-
-  $reviewForm.on('submit', function (e) {
-    e.preventDefault();
-    if (!productId) {
-      return;
-    }
-
-    var payload = {
-      rating: Number($reviewRating.val()),
-      comment: $reviewComment.val().trim()
-    };
-
-    $.ajax({
-      url: '/api/products/' + productId + '/reviews',
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(payload),
-      success: function (result) {
-        if (result.ok) {
-          $reviewRating.val('5');
-          $reviewComment.val('');
-          $reviewStatus.text('Thank you! Your review was submitted.');
-          renderReviews(result.product.reviews);
-        }
-      },
-      error: function (xhr) {
-        var message = xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : 'Could not submit review.';
-        $reviewStatus.text(message);
-      }
+  /* Gallery thumbnails */
+  B.$$('.gallery-thumbs .thumb').forEach(function (thumb) {
+    thumb.addEventListener('click', function () {
+      B.$('#gallery-main-img').src = thumb.getAttribute('data-src');
+      B.$$('.gallery-thumbs .thumb').forEach(function (t) { t.classList.remove('is-active'); });
+      thumb.classList.add('is-active');
     });
   });
 
-  if ($reviewList.length && $reviewList.data('reviews')) {
-    renderReviews($reviewList.data('reviews'));
+  /* Quantity stepper feeds the add-to-cart button's data-qty */
+  var qtyVal = B.$('#pdp-qty-val');
+  var addBtn = B.$('#pdp-add');
+
+  function currentQty() { return Number(qtyVal.textContent) || 1; }
+
+  function setQty(next) {
+    var stock = Number(addBtn.getAttribute('data-stock')) || 99;
+    next = Math.max(1, Math.min(stock, next));
+    qtyVal.textContent = next;
+    addBtn.setAttribute('data-qty', next);
+    var price = Number(addBtn.getAttribute('data-price')) || 0;
+    addBtn.textContent = 'Add to bag — ' + B.money(price * next);
   }
-});
+
+  if (qtyVal && addBtn) {
+    B.$('#pdp-qty-minus').addEventListener('click', function () { setQty(currentQty() - 1); });
+    B.$('#pdp-qty-plus').addEventListener('click', function () { setQty(currentQty() + 1); });
+  }
+
+  /* Star picker */
+  var picker = B.$('#star-picker');
+  var ratingInput = B.$('#review-rating');
+
+  function paintStars(value) {
+    B.$$('#star-picker span').forEach(function (star) {
+      star.classList.toggle('is-lit', Number(star.getAttribute('data-value')) <= value);
+    });
+  }
+
+  if (picker) {
+    paintStars(5);
+    picker.addEventListener('click', function (e) {
+      var star = e.target.closest('span[data-value]');
+      if (!star) return;
+      ratingInput.value = star.getAttribute('data-value');
+      paintStars(Number(ratingInput.value));
+    });
+  }
+
+  /* Review form */
+  var form = B.$('#review-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var status = B.$('#review-status');
+      B.api('/api/products/' + productId + '/reviews', {
+        method: 'POST',
+        body: {
+          rating: Number(ratingInput.value) || 5,
+          comment: B.$('#review-comment').value.trim()
+        }
+      }).then(function () {
+        status.textContent = 'Thank you! Refreshing…';
+        status.className = 'form-status is-success';
+        B.toast('Review submitted 💕');
+        setTimeout(function () { window.location.reload(); }, 900);
+      }).catch(function (err) {
+        status.textContent = err.message;
+        status.className = 'form-status is-error';
+      });
+    });
+  }
+})();

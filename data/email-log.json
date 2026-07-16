@@ -78,5 +78,23 @@
     "subject": "A quick update from Beautique",
     "variant": "modern",
     "createdAt": "2026-07-16T08:31:06.100Z"
+  },
+  {
+    "id": 1784199163164,
+    "type": "review_notification",
+    "to": "admin@luna.com",
+    "subject": "New review: Glow Serum (4/5)",
+    "variant": "modern",
+    "delivered": false,
+    "createdAt": "2026-07-16T10:52:43.164Z"
+  },
+  {
+    "id": 1784199163302,
+    "type": "contact_message",
+    "to": "admin@luna.com",
+    "subject": "New message from Visitor",
+    "variant": "modern",
+    "delivered": false,
+    "createdAt": "2026-07-16T10:52:43.302Z"
   }
 ]

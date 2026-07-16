@@ -1,10 +1,12 @@
-$(function () {
-  var $searchForm = $('#search-form');
-  var $searchInput = $('#search-input');
+/* Shop page — auto-submit the sort selector. */
+(function () {
+  'use strict';
+  var B = window.Beautique;
 
-  $searchForm.on('submit', function (e) {
-    e.preventDefault();
-    var query = $searchInput.val().trim();
-    window.location.href = '/shop?search=' + encodeURIComponent(query);
-  });
-});
+  var sort = B.$('#shop-sort');
+  if (sort) {
+    sort.addEventListener('change', function () {
+      B.$('#shop-sort-form').submit();
+    });
+  }
+})();
