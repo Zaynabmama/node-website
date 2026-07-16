@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <% include partials/head %> 
+  <% include partials/head %>
 </head>
 <body>
-<% include partials/menu %>
+  <% include partials/menu %>
 
-<div class="container-fluid bg-3 text-center">    
-  <h3><%= page %></h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      
+  <section class="hero-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-7">
+          <p class="eyebrow">Beautique Collection</p>
+          <h1>Cosmetics made for your everyday glow.</h1>
+          <p class="hero-text">Discover radiant makeup, nourishing skincare, and elegant scents in one curated beauty destination.</p>
+          <a class="btn btn-primary" href="/shop">Shop now</a>
+        </div>
+        <div class="col-sm-5">
+          <div class="hero-card">
+            <h3>New in store</h3>
+            <p>Velvet Satin Lip • Glow Serum • Lash Lift Mascara</p>
+            <span>Free shipping over $50</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-4"> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </section>
+
+  <section class="container section-space">
+    <h2 class="section-title">Featured products</h2>
+    <div class="row">
+      <% products.forEach(function(product) { %>
+        <div class="col-sm-4">
+          <div class="product-card">
+            <div class="product-badge"><%= product.badge %></div>
+            <div class="product-emoji"><%= product.emoji %></div>
+            <h4><%= product.name %></h4>
+            <p><%= product.description %></p>
+            <div class="product-price"><%= product.price %></div>
+            <a class="btn btn-default" href="/shop">View details</a>
+          </div>
+        </div>
+      <% }); %>
     </div>
-    <div class="col-sm-4"> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </section>
+
+  <section class="container section-space">
+    <h2 class="section-title">Shop by category</h2>
+    <div class="row">
+      <% categories.forEach(function(category) { %>
+        <div class="col-sm-4">
+          <div class="category-card">
+            <h4><%= category.title %></h4>
+            <p><%= category.text %></p>
+          </div>
+        </div>
+      <% }); %>
     </div>
-  </div>
-</div>
+  </section>
 
 </body>
 <% include partials/script %>

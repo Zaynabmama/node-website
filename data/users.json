@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "name": "Admin User",
+    "email": "admin@luna.com",
+    "password": "admin123",
+    "role": "admin",
+    "otp": "",
+    "otpVerified": true
+  },
+  {
+    "id": 1784116945954,
+    "name": "Angelina Abi Nader",
+    "email": "angelina.abinader@gmail.com",
+    "password": "123",
+    "role": "client",
+    "phone": "",
+    "address": "",
+    "otp": "",
+    "otpVerified": true
+  },
+  {
+    "id": 1784184443193,
+    "name": "ang",
+    "email": "angelina.abinader@net.usj.edu.lb",
+    "password": "456",
+    "role": "client",
+    "phone": "",
+    "address": "",
+    "otp": "322746",
+    "otpVerified": false
+  }
+]

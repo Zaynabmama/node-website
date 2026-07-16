@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include partials/head %>
+</head>
+<body>
+  <% include partials/menu %>
+
+  <section class="container section-space">
+    <div class="row">
+      <div class="col-sm-7">
+        <div id="product-details" class="product-detail" data-product-id="<%= product.id %>">
+          <% if (product.images && product.images.length) { %>
+            <div class="product-gallery">
+              <div class="product-main-image">
+                <img id="product-main-image" src="<%= product.images[0] %>" alt="<%= product.name %>">
+              </div>
+              <div class="product-thumbnails">
+                <% product.images.forEach(function(image, index) { %>
+                  <img class="product-thumb <%= index === 0 ? 'active' : '' %>" src="<%= image %>" alt="<%= product.name %> preview" data-src="<%= image %>">
+                <% }); %>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="product-main-image product-main-image-empty">
+              <img src="https://via.placeholder.com/640x480?text=No+image" alt="No product image">
+            </div>
+          <% } %>
+
+          <% if (product.modelImage) { %>
+            <div class="product-model-image">
+              <img src="<%= product.modelImage %>" alt="Model wearing <%= product.name %>">
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="col-sm-5">
+        <div class="product-summary">
+          <div class="product-badge"><%= product.badge %></div>
+          <h2><%= product.name %></h2>
+          <p class="product-brand">By <strong><%= product.brand %></strong></p>
+          <div class="product-price"><%= product.price %></div>
+          <p class="product-stock"><%= product.soldOut || product.stock <= 0 ? 'Sold out' : product.stock + ' in stock' %></p>
+          <p class="product-description"><%= product.description %></p>
+          <a class="btn btn-primary add-to-cart" href="#" data-name="<%= product.name %>" data-price="<%= product.price.replace('$', '') %>" data-stock="<%= product.stock %>" data-soldout="<%= product.soldOut %>">Add to bag</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row product-review-section">
+      <div class="col-sm-12">
+        <div class="review-form-card">
+          <h3>Write a review</h3>
+          <p>Share your experience and help our team improve the product. Reviews are reviewed by admin before appearing publicly.</p>
+          <form id="review-form">
+            <label for="review-rating">Rating</label>
+            <select id="review-rating" class="form-control" required>
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Great</option>
+              <option value="3">3 - Good</option>
+              <option value="2">2 - Fair</option>
+              <option value="1">1 - Poor</option>
+            </select>
+            <label for="review-comment">Comment</label>
+            <textarea id="review-comment" class="form-control" rows="5" placeholder="Tell others what you liked" required></textarea>
+            <button class="btn btn-primary" type="submit" style="margin-top: 14px;">Submit review</button>
+            <div id="review-status" class="auth-status" style="margin-top: 12px;"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+<% include partials/script %>
+</html>

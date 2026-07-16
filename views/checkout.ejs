@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include partials/head %>
+</head>
+<body>
+  <% include partials/menu %>
+
+  <section class="container section-space checkout-page">
+    <h2 class="section-title"><%= page %></h2>
+    <p class="lead">Review the items in your bag and complete your purchase.</p>
+
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="cart-panel">
+          <h3>Your bag <span id="cart-count" class="cart-count">0</span></h3>
+          <p id="cart-empty" class="cart-empty">Your bag is empty.</p>
+          <ul id="checkout-items" class="cart-items"></ul>
+          <div class="checkout-payment-methods" style="margin-top:20px;">
+            <h4>Payment method</h4>
+            <div class="radio">
+              <label><input type="radio" name="paymentMethod" value="online"> Pay online</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="paymentMethod" value="delivery"> Pay on delivery</label>
+            </div>
+            <p class="help-block">Choose how you want to pay for your order.</p>
+          </div>
+          <div id="checkout-summary" class="cart-summary">
+            <div class="cart-total">Total: <span id="checkout-total">$0.00</span></div>
+            <button id="checkout-button" class="btn btn-primary" type="button">Place order</button>
+            <div id="checkout-status" class="auth-status" style="margin-top: 12px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="info-card">
+          <h4>Need help?</h4>
+          <p>If you need to change your order before checkout, return to the shop and update your bag.</p>
+          <p><a href="/shop" class="btn btn-default">Continue shopping</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+<% include partials/script %>
+</html>

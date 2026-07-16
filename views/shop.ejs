@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include partials/head %>
+</head>
+<body>
+  <% include partials/menu %>
+
+  <section class="container section-space">
+    <h2 class="section-title"><%= page %></h2>
+    <p class="lead">Curated cosmetics for a fresh, confident look every day.</p>
+
+    <form id="search-form" class="search-form">
+      <input id="search-input" type="text" placeholder="Search by brand or product" value="<%= searchTerm %>">
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="row">
+      <div class="col-sm-8">
+        <% if (products.length === 0) { %>
+          <div class="info-card">
+            <h4>No products found</h4>
+            <p>Try searching for a brand such as Luna, Aura, or Nova.</p>
+          </div>
+        <% } else { %>
+        <div class="row">
+          <% products.forEach(function(product) { %>
+            <div class="col-sm-6">
+              <div class="product-card">
+                <div class="product-badge"><%= product.badge %></div>
+                <div class="product-emoji"><%= product.emoji %></div>
+                <h4><%= product.name %></h4>
+                <p><strong>Brand:</strong> <%= product.brand %></p>
+                <p><%= product.description %></p>
+                <div class="product-price"><%= product.price %></div>
+                <a class="btn btn-default" href="/product/<%= product.id %>">View details</a>
+                <% if (!product.soldOut && product.stock > 0) { %>
+                  <a class="btn btn-primary add-to-cart" href="#" data-name="<%= product.name %>" data-price="<%= product.price.replace('$', '') %>" data-stock="<%= product.stock %>" data-soldout="<%= product.soldOut %>">Add to bag</a>
+                <% } else { %>
+                  <button class="btn btn-primary" disabled>Sold out</button>
+                <% } %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+        <% } %>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="cart-panel">
+          <h3>Your cart <span id="cart-count" class="cart-count">0</span></h3>
+          <p id="cart-empty" class="cart-empty">Your cart is empty.</p>
+          <ul id="cart-items" class="cart-items"></ul>
+          <div id="cart-summary" class="cart-summary">
+            <div class="cart-total">Total: <span id="cart-total">$0.00</span></div>
+            <button id="checkout-button" class="btn btn-primary" type="button">Buy now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+<% include partials/script %>
+</html>

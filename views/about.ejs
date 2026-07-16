@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <% include partials/head %> 
+  <% include partials/head %>
 </head>
 <body>
-<% include partials/menu %>
+  <% include partials/menu %>
 
-<div class="container-fluid bg-3 text-center">    
-  <h3><%= page %></h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      
+  <section class="container section-space">
+    <h2 class="section-title"><%= page %></h2>
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="lead">Beautique was created for people who want beauty products that feel luxurious, ethical, and effortless.</p>
+        <p>We blend modern formulas with everyday practicality so you can build a routine that enhances your natural glow.</p>
+      </div>
+      <div class="col-sm-6">
+        <div class="info-card">
+          <h4>Why customers love us</h4>
+          <ul>
+            <li>Vegan and cruelty-free formulas</li>
+            <li>Thoughtfully curated essentials</li>
+            <li>Fast delivery and easy returns</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-4"> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div class="col-sm-4"> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-  </div>
-</div>
+  </section>
 
 </body>
 <% include partials/script %>
